@@ -5,14 +5,20 @@
  */
 package be.vdab.terrarium.userinterfaces;
 
+import be.vdab.terrarium.Terrarium;
 import be.vdab.terrarium.items.*;
 
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 
 public class Swing {
 
-    //private Terrarium terrarium = new Terrarium(60,30,10,20,20);
+    //could be vars later with input in swing
+    private static Terrarium terrarium = new Terrarium(60,30,10,20,20);
+    
+    // hard coded test stuff
     private static Ding[][] terrariumVeldHard = new Ding[4][4];
 
     static void initHard() {
@@ -41,14 +47,14 @@ public class Swing {
 
     static String endhtml = "<html>"
             + "</table>"
-            + "</body>"
+            + "</body>"            
             + "</html>";
 
     static String htmlTable(String mode) {
         if (mode.equals("hard")) {
             return beginhtml + htmlRowsInstance(terrariumVeldHard) + endhtml;
         } else {
-            return "fout" /* beginhtml + htmlRowsInstance(terrarium.getSpeeldveld()) + endhtml */;
+            return null; //beginhtml + htmlRowsInstance(terrarium.getSpeelveld().) + endhtml ;
         }
     }
 
@@ -102,6 +108,14 @@ public class Swing {
         JLabel label = new JLabel(htmlTable("hard"));
         frame.getContentPane().add(label);
         JButton buttonNext = new JButton("volgende dag");
+        buttonNext.addActionListener(new ActionListener() {
+ 
+            public void actionPerformed(ActionEvent e)
+            {
+                // terrarium start, reload veld (htmlTable()
+                System.out.println("You clicked the button");
+            }
+        });   
         frame.getContentPane().add(buttonNext);
         //Display the window.
         frame.pack();
@@ -109,8 +123,6 @@ public class Swing {
     }
 
     public static void main(String[] args) {
-        //Schedule a job for the event-dispatching thread:
-        //creating and showing this application's GUI.
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 createAndShowGUI();
