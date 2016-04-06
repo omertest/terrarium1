@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package be.vdab.terrarium.userinterfaces;
 
 import be.vdab.terrarium.Terrarium;
@@ -15,13 +10,15 @@ import javax.swing.*;
 
 public class Swing {
 
-    //could be vars later with input in swing
+    //terrarium met speeldveld
     private static Terrarium terrarium = new Terrarium(60,30,10,20,20);
     
     // hard coded test stuff
     private static Ding[][] terrariumVeldHard = new Ding[4][4];
+    private static Ding[][] terrariumVeldHard2 = new Ding[4][4];  
 
     static void initHard() {
+        
         terrariumVeldHard[0][0] = new Herbivoor();
         terrariumVeldHard[0][1] = new Plant();
         //terrariumVeld[0][2] = new Herbivoor();
@@ -38,11 +35,15 @@ public class Swing {
         terrariumVeldHard[3][1] = new Herbivoor();
         //terrariumVeld[3][2] = new Carnivoor();
         terrariumVeldHard[3][3] = new Herbivoor();
+        
+        terrariumVeldHard2[0][0] = new Carnivoor();
+        terrariumVeldHard2[0][1] = null;
+        terrariumVeldHard2[1][0] = null;
+        terrariumVeldHard2[1][1] = null;
     }
 
     static String beginhtml = "<html>"
             + "<body>"
-            + "<p>Terrarium scum</p>"
             + "<table border=2>";
 
     static String endhtml = "<html>"
@@ -50,6 +51,7 @@ public class Swing {
             + "</body>"            
             + "</html>";
 
+    // werken instanceof /tostring - hard coded / terrarium
     static String htmlTable(String mode) {
         if (mode.equals("hard")) {
             return beginhtml + htmlRowsInstance(terrariumVeldHard) + endhtml;
@@ -107,15 +109,18 @@ public class Swing {
 
         JLabel label = new JLabel(htmlTable("hard"));
         frame.getContentPane().add(label);
+        
+        //volgende dag stuff
         JButton buttonNext = new JButton("volgende dag");
         buttonNext.addActionListener(new ActionListener() {
- 
             public void actionPerformed(ActionEvent e)
             {
-                // terrarium start, reload veld (htmlTable()
-                System.out.println("You clicked the button");
+                // terrarium.start 
+                terrariumVeldHard = terrariumVeldHard2;
+                label.setText(htmlTable("hard"));
             }
         });   
+        
         frame.getContentPane().add(buttonNext);
         //Display the window.
         frame.pack();
