@@ -5,8 +5,6 @@
  */
 package be.vdab.terrarium.items;
 
-import java.io.Serializable;
-
 /**
  *
  * @author arne.simons
