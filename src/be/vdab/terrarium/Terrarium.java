@@ -60,6 +60,10 @@ public class Terrarium {
         }
     }
     
+    public void getPlaats(Ding ding) {
+        speelveld.getPlaats(ding);
+    }
+    
     public void maakNieuweHerbivoor() {
         speelveld.dingToevoegen((Ding)new Herbivoor(this));
     }
