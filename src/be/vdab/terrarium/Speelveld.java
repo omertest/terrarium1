@@ -10,7 +10,6 @@ import be.vdab.terrarium.items.Ding;
 import be.vdab.terrarium.items.Herbivoor;
 import be.vdab.terrarium.items.Niets;
 import be.vdab.terrarium.items.Plant;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -22,7 +21,8 @@ import java.util.Random;
 public class Speelveld {
 
     private static final long serialVersionUID = 1L;
-    Niets niets = new Niets();
+    Terrarium t;
+    Niets niets = new Niets(t);
     Random coordinaatRandom = new Random();
 
     Ding[][] speelveld;
@@ -32,7 +32,8 @@ public class Speelveld {
     List<Coordinaat> herbivoor = new ArrayList();
     List<Coordinaat> nietsen = new ArrayList();
 
-    public Speelveld(int breedte, int hoogte) {
+    public Speelveld(int breedte, int hoogte, Terrarium terrarium) {
+        t = terrarium;
         speelveld = new Ding[breedte][hoogte];
         for (int x = 0; x < breedte; x++) {
             for (int y = 0; y < hoogte; y++) {
@@ -118,5 +119,9 @@ public class Speelveld {
             carnivoor.remove(coord);
             speelveld[coord.x][coord.y] = niets;
         }
+    }
+
+    void startBewegingen() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
