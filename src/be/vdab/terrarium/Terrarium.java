@@ -64,6 +64,10 @@ public class Terrarium {
         speelveld.getPlaats(ding);
     }
     
+    public List<Coordinaat> getVrijePlaatsen(Ding ding, Coordinaat plaats) {
+        return speelveld.getVrijePlaatsen(ding, plaats);
+    }
+    
     public void maakNieuweHerbivoor() {
         speelveld.dingToevoegen((Ding)new Herbivoor(this));
     }
