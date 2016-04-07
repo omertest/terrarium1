@@ -14,9 +14,8 @@ import be.vdab.terrarium.Terrarium;
 public abstract class LevendWezen extends Ding {
     private long levenswaarde;
 
-    public LevendWezen(Terrarium terrarium, long levenswaarde) {
+    public LevendWezen(Terrarium terrarium) {
         super(terrarium);
-        this.levenswaarde = levenswaarde;
     }
         
     public long getLevenswaarde(){
@@ -27,5 +26,4 @@ public abstract class LevendWezen extends Ding {
         this.levenswaarde = levenswaarde;
     }
     
-    public void verhoogLevenswaarde(long levenswaarde){}    
 }
