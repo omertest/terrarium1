@@ -5,7 +5,9 @@
  */
 package be.vdab.terrarium.items;
 
+import be.vdab.terrarium.Coordinaat;
 import be.vdab.terrarium.Terrarium;
+import java.util.List;
 import java.util.Random;
 
 /**

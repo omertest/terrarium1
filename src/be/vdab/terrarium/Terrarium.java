@@ -76,7 +76,7 @@ public class Terrarium {
         speelveld.verwijder(ding, huidigePlaats);
     }
 
-    public void wandel(Ding ding, Coordinaat huidigePlaats) {
+    public void wandel(Ding ding, Coordinaat naarPlaats) {
         speelveld.wandel(ding, naarPlaats);
     }
     
