@@ -11,32 +11,33 @@ import javax.swing.*;
 public class Swing {
 
     //terrarium met speeldveld
-    private static Terrarium terrarium = new Terrarium(60,30,10,20,20);
-    
+    private static Terrarium terrarium = new Terrarium(60, 30, 10, 20, 20);
+
+    private static boolean continu = false;
     // hard coded test stuff
     private static Ding[][] terrariumVeldHard = new Ding[4][4];
-    private static Ding[][] terrariumVeldHard2 = new Ding[4][4];  
+    private static Ding[][] terrariumVeldHard2 = new Ding[4][4];
 
     static void initHard() {
-        
-        terrariumVeldHard[0][0] = new Herbivoor();
-        terrariumVeldHard[0][1] = new Plant();
-        //terrariumVeld[0][2] = new Herbivoor();
-        terrariumVeldHard[0][3] = new Herbivoor();
-        // terrariumVeld[1][0] = new Herbivoor();
-        terrariumVeldHard[1][1] = new Herbivoor();
-        terrariumVeldHard[1][2] = new Herbivoor();
-        //terrariumVeld[1][3] = new Plant();
-        terrariumVeldHard[2][0] = new Herbivoor();
-        terrariumVeldHard[2][1] = new Herbivoor();
-        //terrariumVeld[2][2] = new Herbivoor();
-        terrariumVeldHard[2][3] = new Carnivoor();
-        terrariumVeldHard[3][0] = new Plant();
-        terrariumVeldHard[3][1] = new Herbivoor();
-        //terrariumVeld[3][2] = new Carnivoor();
-        terrariumVeldHard[3][3] = new Herbivoor();
-        
-        terrariumVeldHard2[0][0] = new Carnivoor();
+
+        terrariumVeldHard[0][0] = new Herbivoor(terrarium);
+        terrariumVeldHard[0][1] = new Plant(terrarium);
+        //terrariumVeld[0][2] = new Herbivoor(terrarium);
+        terrariumVeldHard[0][3] = new Herbivoor(terrarium);
+        // terrariumVeld[1][0] = new Herbivoor(terrarium);
+        terrariumVeldHard[1][1] = new Herbivoor(terrarium);
+        terrariumVeldHard[1][2] = new Herbivoor(terrarium);
+        //terrariumVeld[1][3] = new Plant(terrarium);
+        terrariumVeldHard[2][0] = new Herbivoor(terrarium);
+        terrariumVeldHard[2][1] = new Herbivoor(terrarium);
+        //terrariumVeld[2][2] = new Herbivoor(terrarium);
+        terrariumVeldHard[2][3] = new Carnivoor(terrarium);
+        terrariumVeldHard[3][0] = new Plant(terrarium);
+        terrariumVeldHard[3][1] = new Herbivoor(terrarium);
+        //terrariumVeld[3][2] = new Carnivoor(terrarium);
+        terrariumVeldHard[3][3] = new Herbivoor(terrarium);
+
+        terrariumVeldHard2[0][0] = new Carnivoor(terrarium);
         terrariumVeldHard2[0][1] = null;
         terrariumVeldHard2[1][0] = null;
         terrariumVeldHard2[1][1] = null;
@@ -48,15 +49,15 @@ public class Swing {
 
     static String endhtml = "<html>"
             + "</table>"
-            + "</body>"            
+            + "</body>"
             + "</html>";
 
     // werken instanceof /tostring - hard coded / terrarium
     static String htmlTable(String mode) {
-        if (mode.equals("hard")) {
-            return beginhtml + htmlRowsInstance(terrariumVeldHard) + endhtml;
+        if (mode.equals("terrarium")) {
+            return beginhtml + htmlRowsInstance(terrarium.getSpeelveld().getSpeelveld()) + endhtml;
         } else {
-            return null; //beginhtml + htmlRowsInstance(terrarium.getSpeelveld().) + endhtml ;
+            return beginhtml + htmlRowsInstance(terrariumVeldHard) + endhtml;
         }
     }
 
@@ -66,13 +67,13 @@ public class Swing {
 
     static String htmlRowsString(Ding[][] veld) {
         String table = "";
-        for (int row = 0; row < terrariumVeldHard.length; row++) {
+        for (int row = 0; row < veld.length; row++) {
             table += "<tr>";
-            for (int col = 0; col < terrariumVeldHard[row].length; col++) {
-                if (terrariumVeldHard[row][col] == null) {
+            for (int col = 0; col < veld[row].length; col++) {
+                if (veld[row][col] == null) {
                     table += "<td>" + "." + "</td>";
                 }
-                table += "<td>" + terrariumVeldHard[row][col] + "</td>";
+                table += "<td>" + veld[row][col] + "</td>";
             }
             table += "</tr>";
         }
@@ -81,17 +82,17 @@ public class Swing {
 
     static String htmlRowsInstance(Ding[][] veld) {
         String table = "";
-        for (int row = 0; row < terrariumVeldHard.length; row++) {
+        for (int row = 0; row < veld.length; row++) {
             table += "<tr>";
-            for (int col = 0; col < terrariumVeldHard[row].length; col++) {
-                if (terrariumVeldHard[row][col] instanceof Plant) {
+            for (int col = 0; col < veld[row].length; col++) {
+                if (veld[row][col] instanceof Plant) {
                     table += "<td>" + "Plant" + "</td>";
-                } else if (terrariumVeldHard[row][col] instanceof Herbivoor) {
+                } else if (veld[row][col] instanceof Herbivoor) {
                     table += "<td>" + "Herbi" + "</td>";
-                } else if (terrariumVeldHard[row][col] instanceof Carnivoor) {
+                } else if (veld[row][col] instanceof Carnivoor) {
                     table += "<td>" + "Carni" + "</td>";
                 } else {
-                    table += "<td>" + "." + "</td>";
+                    table += "<td>" + " " + "</td>";
                 }
             }
             table += "</tr>";
@@ -100,28 +101,58 @@ public class Swing {
     }
 
     private static void createAndShowGUI() {
-        initHard();
+       // initHard();
 
         //Create and set up the window.
         JFrame frame = new JFrame("Terrarium");
         frame.setLayout(new FlowLayout());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        JLabel label = new JLabel(htmlTable("hard"));
+        JLabel label = new JLabel(htmlTable("terrarium"));
         frame.getContentPane().add(label);
-        
+
         //volgende dag stuff
-        JButton buttonNext = new JButton("volgende dag");
-        buttonNext.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e)
-            {
-                // terrarium.start 
+        JButton knopVolgende = new JButton("volgende dag");
+        knopVolgende.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // terrarium.start(); 
                 terrariumVeldHard = terrariumVeldHard2;
                 label.setText(htmlTable("hard"));
             }
-        });   
+        });
+
+        //continu stuff
+        JButton knopContinu = new JButton("simulatie");
+        knopContinu.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                continu = true;
+                //todo get seconds from input
+                final Timer timer = new Timer(500, null);
+                ActionListener listener = new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (continu) {
+                            //terrarium.start();
+                            label.setText(htmlTable("hard"));
+                        } else {
+                            timer.stop();
+                        }
+                    }
+                };
+                timer.addActionListener(listener);
+                timer.start();
+            }
+        });
+
+        // stop continu
+        JButton knopStopContinu = new JButton("stop");
+        knopStopContinu.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                continu = false;
+            }
+        });
         
-        frame.getContentPane().add(buttonNext);
+        frame.getContentPane().add(knopVolgende);
         //Display the window.
         frame.pack();
         frame.setVisible(true);
