@@ -20,7 +20,7 @@ public class Terrarium {
     private final int aantalCarnivoren; //default 10    
     private final int x; //horizontaal, default 20
     private final int y; //verticaal, default 20
-    private Speelveld speelveld;
+    private final Speelveld speelveld;
 
     public Terrarium(int aantalPlanten, int aantalHerbivoren, int aantalCarnivoren, int x, int y) {
         this.aantalPlanten = aantalPlanten;
@@ -36,17 +36,34 @@ public class Terrarium {
         }
         
         for(int i = 1; i <= aantalHerbivoren; i++) {
-            speelveld.dingToevoegen((Ding)new Herbivoor());
+            speelveld.dingToevoegen((Ding)new Herbivoor(this));
         }
         
         for(int i = 1; i <= aantalCarnivoren; i++) {
-            speelveld.dingToevoegen((Ding)new Carnivoor());
+            speelveld.dingToevoegen((Ding)new Carnivoor(this));
         }
         
     }   
+    
 
     public Speelveld getSpeelveld() {
         return speelveld;
+    }
+    
+    public void start() {    // bewegingen starten
+        speelveld.startBewegingen(); 
+        
+        // Per actie komen er 0 tot 10 nieuwe planten bij
+        int aantalNieuwePlanten = (int)(Math.random()*11);
+        for(int i = 1; i <= aantalNieuwePlanten; i++) {
+            speelveld.dingToevoegen((Ding)new Plant());
+        }
+        
+        
+    }
+    
+    public void maakNieuweHerbivoor() {
+        speelveld.dingToevoegen((Ding)new Herbivoor(this));
     }
     
 }

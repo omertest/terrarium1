@@ -5,21 +5,23 @@
  */
 package be.vdab.terrarium.items;
 
+import be.vdab.terrarium.Terrarium;
+
 /**
  *
  * @author thomas.vandevyvere
  */
 public abstract class Ding {
-    private long levenswaarde;
     
-    public long getLevenswaarde(){
-        return levenswaarde;
-    }
+    public final Terrarium terrarium;
 
-    public void setLevenswaarde(long levenswaarde) {
-        this.levenswaarde = levenswaarde;
+    public Ding(Terrarium terrarium) {
+        this.terrarium = terrarium;
     }
-    public void verhoogLevenswaarde(long levenswaarde){}
     
-    
+    public abstract void interageerMetEenDing( Ding ding );
+    public abstract void interageerMetEenCarnivoor(Carnivoor carnivoor);
+    public abstract void interageerMetEenHerbivoor(Herbivoor herbivoor);
+    public abstract void interageerMetEenPlant(Plant plant);
+    public abstract void interageerMetNiets(Niets niets);
 }
