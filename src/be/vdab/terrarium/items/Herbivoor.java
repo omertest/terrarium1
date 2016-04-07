@@ -56,7 +56,17 @@ public class Herbivoor extends LevendWezen {
     }
     
     private void wandel() {
-        super.setLevenswaarde(super.getLevenswaarde() - 1);
-        // te bekijken in carnivoor!!
+        Coordinaat huidigePlaats = terrarium.getPlaats(this);
+        
+        List<Coordinaat> vrijeplaatsen = terrarium.getVrijePlaatsen(this, huidigePlaats);
+        
+        if(getLevenswaarde() == 0 && vrijeplaatsen.size() < 8){
+            terrarium.sterf(this, huidigePlaats);
+        } else if(vrijeplaatsen.size() < 8){
+            Random coordinaatRandom = new Random();
+            Coordinaat plaats = (Coordinaat) vrijeplaatsen.get(coordinaatRandom.nextInt(vrijeplaatsen.size()));
+            terrarium.wandel(this, plaats);
+            this.setLevenswaarde(this.getLevenswaarde() - 1);
+        }
     }
 }
