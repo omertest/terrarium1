@@ -113,7 +113,7 @@ public class Speelveld {
         }
         return vrijePlaatsen;
     }
-    
+
     public void verwijder(Ding ding, Coordinaat coord) {
         if (ding instanceof Carnivoor) {
             carnivoor.remove(coord);
@@ -121,10 +121,17 @@ public class Speelveld {
         }
     }
 
-    public void wandel(Ding ding, Coordinaat naarPlaats) {
-        speelveld[naarPlaats.x][naarPlaats.y] = ding;
+    public void wandel(Ding ding) {
+
+        List<Coordinaat> vrijePlaatsen;
+        vrijePlaatsen = getVrijePlaatsen(ding, getPlaats(ding));
+        if (!vrijePlaatsen.isEmpty()) {
+            speelveld[getPlaats(ding).x][getPlaats(ding).y] = niets;
+            Coordinaat naarPlaats = vrijePlaatsen.get(coordinaatRandom.nextInt(vrijePlaatsen.size()));
+            speelveld[naarPlaats.x][naarPlaats.y] = ding;
+        }
     }
-    
+
     void startBewegingen() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
