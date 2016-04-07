@@ -72,4 +72,12 @@ public class Terrarium {
         speelveld.dingToevoegen((Ding)new Herbivoor(this));
     }
     
+    public void sterf(Ding ding, Coordinaat huidigePlaats) {
+        speelveld.verwijder(ding, huidigePlaats);
+    }
+
+    public void wandel(Ding ding, Coordinaat huidigePlaats) {
+        throw new UnsupportedOperationException();
+    }
+    
 }
