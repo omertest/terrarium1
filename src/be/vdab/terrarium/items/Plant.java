@@ -5,23 +5,42 @@
  */
 package be.vdab.terrarium.items;
 
+import be.vdab.terrarium.Terrarium;
+
 /**
  *
  * @author arne.simons
  */
-public class Plant extends Ding {
+public class Plant extends LevendWezen {
 
-    public Plant() {
+    public Plant(Terrarium terrarium) {
+        super(terrarium);
         super.setLevenswaarde(0);
     }
 
     @Override
-    public void verhoogLevenswaarde(long levenswaarde){
-        if (Long.MAX_VALUE - super.getLevenswaarde() > levenswaarde) {
-            super.setLevenswaarde(Long.MAX_VALUE);
-        } else {
-            super.setLevenswaarde(super.getLevenswaarde() + levenswaarde);
-        }
+    public void interageerMetEenDing(Ding ding) {
+        ding.interageerMetEenPlant(this);
+    }
+
+    @Override
+    public void interageerMetEenCarnivoor(Carnivoor carnivoor) {
+        carnivoor.interageerMetEenPlant(this);
+    }
+
+    @Override
+    public void interageerMetEenHerbivoor(Herbivoor herbivoor) {
+        herbivoor.interageerMetEenPlant(this);
+    }
+
+    @Override
+    public void interageerMetEenPlant(Plant plant) {
+        // doet niks
+    }
+
+    @Override
+    public void interageerMetNiets(Niets niets) {
+        // doet niks
     }
     
 }
