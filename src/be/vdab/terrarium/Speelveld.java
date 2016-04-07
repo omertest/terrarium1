@@ -121,6 +121,10 @@ public class Speelveld {
         }
     }
 
+    public void wandel(Ding ding, Coordinaat naarPlaats) {
+        speelveld[naarPlaats.x][naarPlaats.y] = ding;
+    }
+    
     void startBewegingen() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
