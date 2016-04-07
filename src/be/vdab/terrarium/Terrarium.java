@@ -77,7 +77,7 @@ public class Terrarium {
     }
 
     public void wandel(Ding ding, Coordinaat huidigePlaats) {
-        throw new UnsupportedOperationException();
+        speelveld.wandel(ding, naarPlaats);
     }
     
 }
