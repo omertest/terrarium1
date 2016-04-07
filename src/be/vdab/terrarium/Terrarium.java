@@ -60,8 +60,8 @@ public class Terrarium {
         }
     }
     
-    public void getPlaats(Ding ding) {
-        speelveld.getPlaats(ding);
+    public Coordinaat getPlaats(Ding ding) {
+        return speelveld.getPlaats(ding);
     }
     
     public List<Coordinaat> getVrijePlaatsen(Ding ding, Coordinaat plaats) {
