@@ -44,10 +44,24 @@ public class Terrarium {
         for (int i = 1; i <= aantalCarnivoren; i++) {
             speelveld.dingToevoegen((Ding) new Carnivoor(this));
         }
+    }    
 
     public Speelveld getSpeelveld() {
         return speelveld;
     }
-
+    
+    public void start() {    // bewegingen starten
+        speelveld.startBewegingen(); 
+        
+        // Per actie komen er 0 tot 10 nieuwe planten bij
+        int aantalNieuwePlanten = (int)(Math.random()*11);
+        for(int i = 1; i <= aantalNieuwePlanten; i++) {
+            speelveld.dingToevoegen((Ding)new Plant());
+        }
     }
+    
+    public void maakNieuweHerbivoor() {
+        speelveld.dingToevoegen((Ding)new Herbivoor(this));
+    }
+    
 }
