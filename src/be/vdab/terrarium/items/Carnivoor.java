@@ -5,9 +5,7 @@
  */
 package be.vdab.terrarium.items;
 
-import be.vdab.terrarium.Coordinaat;
 import be.vdab.terrarium.Terrarium;
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -64,8 +62,8 @@ public class Carnivoor extends LevendWezen {
             setLevenswaarde(this.getLevenswaarde() + carnivoor.getLevenswaarde());
             carnivoor.setLevenswaarde(0);
         } else if (verschil < 0) {
-            setLevenswaarde(0);
             carnivoor.setLevenswaarde(this.getLevenswaarde() + carnivoor.getLevenswaarde());
+            setLevenswaarde(0);
         } else {
             //gelijkspel
         }

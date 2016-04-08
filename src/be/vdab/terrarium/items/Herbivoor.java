@@ -7,7 +7,6 @@ package be.vdab.terrarium.items;
 
 import be.vdab.terrarium.Coordinaat;
 import be.vdab.terrarium.Terrarium;
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -52,9 +51,10 @@ public class Herbivoor extends LevendWezen {
     }
 
     private void eet(Plant plant) {
+        Coordinaat plaatsPlant = terrarium.getPlaats(plant);
         setLevenswaarde(this.getLevenswaarde() + plant.getLevenswaarde());
         terrarium.sterf(plant);
-
+        // TODO terrarium.verplaats(this, plaatsPlant);
     }
 
     private void wandel() {

@@ -164,7 +164,7 @@ public class Speelveld {
         }
     }
 
-    void startBewegingen() {
+    public void verplaatsNaarRechts(Ding ding) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

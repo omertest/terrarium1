@@ -72,7 +72,7 @@ public class Terrarium {
         // alle carnivoren doen hun ding
         for (Coordinaat c : speelveld.carnivoor) {
             Carnivoor carni = (Carnivoor) speelveld.getDing(c);
-            // carni.interageerMetEenDing(carni);
+            // carni.interageerMetEenDing();
         }
     }
 
