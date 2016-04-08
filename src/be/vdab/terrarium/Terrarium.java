@@ -65,12 +65,12 @@ public class Terrarium {
         }
 
         // alle herbivoren doen hun ding
-        for (Coordinaat c : speelveld.plant) {
+        for (Coordinaat c : speelveld.herbivoor) {
             Herbivoor h = (Herbivoor) speelveld.getDing(c);
             // h.interageerMetEenDing();  - ding rechts ervan vandoen + check c.x = 20
         }
         // alle carnivoren doen hun ding
-        for (Coordinaat c : speelveld.plant) {
+        for (Coordinaat c : speelveld.carnivoor) {
             Carnivoor carni = (Carnivoor) speelveld.getDing(c);
             // carni.interageerMetEenDing(carni);
         }
