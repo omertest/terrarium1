@@ -80,16 +80,16 @@ public class Terrarium {
         return speelveld.getPlaats(ding);
     }
 
-    public List<Coordinaat> getVrijePlaatsen(Ding ding, Coordinaat plaats) {
-        return speelveld.getVrijePlaatsen(ding, plaats);
+    public List<Coordinaat> getVrijePlaatsen(Ding ding) {
+        return speelveld.getVrijePlaatsen(ding);
     }
 
     public void maakNieuweHerbivoor() {
         speelveld.dingToevoegen((Ding) new Herbivoor(this));
     }
 
-    public void sterf(Ding ding, Coordinaat huidigePlaats) {
-        speelveld.verwijder(ding, huidigePlaats);
+    public void sterf(Ding ding) {
+        speelveld.verwijder(ding);
     }
 
     public void wandel(Ding ding) {

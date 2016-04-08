@@ -26,14 +26,13 @@ public class Carnivoor extends LevendWezen {
     }
 
     /*@Override
-    public void verhoogLevenswaarde(long levenswaarde) {
-        if (Long.MAX_VALUE - super.getLevenswaarde() < levenswaarde) {
-            super.setLevenswaarde(Long.MAX_VALUE);
-        } else {
-            super.setLevenswaarde(super.getLevenswaarde() + levenswaarde);
-        }
-    }*/
-
+     public void verhoogLevenswaarde(long levenswaarde) {
+     if (Long.MAX_VALUE - super.getLevenswaarde() < levenswaarde) {
+     super.setLevenswaarde(Long.MAX_VALUE);
+     } else {
+     super.setLevenswaarde(super.getLevenswaarde() + levenswaarde);
+     }
+     }*/
     @Override
     public void interageerMetEenDing(Ding ding) {
         ding.interageerMetEenCarnivoor(this);
@@ -78,18 +77,11 @@ public class Carnivoor extends LevendWezen {
     }
 
     private void wandel() {
-        Coordinaat huidigePlaats = terrarium.getPlaats(this);
-        List<Coordinaat> vrijeplaatsen = terrarium.getVrijePlaatsen(this, huidigePlaats);
-        
-        if(getLevenswaarde() == 0 && vrijeplaatsen.size() < 8){
-            terrarium.sterf(this, huidigePlaats);
-        } else if(vrijeplaatsen.size() < 8){
-            Random coordinaatRandom = new Random();
-            Coordinaat plaats = (Coordinaat) vrijeplaatsen.get(coordinaatRandom.nextInt(vrijeplaatsen.size()));
+        if (getLevenswaarde() == 0 && terrarium.getVrijePlaatsen(this).isEmpty()) {
+            terrarium.sterf(this);
+        } else {
+            setLevenswaarde(getLevenswaarde() - 1);
             terrarium.wandel(this);
-            this.setLevenswaarde(this.getLevenswaarde() - 1);
         }
-            
-        
     }
 }

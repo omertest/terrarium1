@@ -70,6 +70,10 @@ public class Speelveld {
     public Ding[][] getSpeelveld() {
         return speelveld;
     }
+    
+    public Ding getDing(Coordinaat c){
+        return speelveld[c.x][c.y];
+    }
 
     public void interactieMetRechts(Ding ding) {
 
