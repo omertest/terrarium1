@@ -33,6 +33,9 @@ public class Speelveld {
     List<Coordinaat> nietsen = new ArrayList();
 
     public Speelveld(int breedte, int hoogte, Terrarium terrarium) {
+        //de 2d array wordt aangemaakt.
+        //elke positie krijgt een niets object.
+        //al deze nietsen worden aan een verzameling toegevoegd.
         t = terrarium;
         speelveld = new Ding[breedte][hoogte];
         for (int x = 0; x < breedte; x++) {
@@ -44,19 +47,21 @@ public class Speelveld {
     }
 
     public void dingToevoegen(Ding ding) {
+        //als er nog vrije plaatsen zijn, 
+        //kies je een random vrije plaats uit deze verzameling. 
+        //Je verwijdert deze coordinaat uit nietsen, 
+        //en voegt hem toe aan de correcte verzameling objecten.
         if (!nietsen.isEmpty()) {
             Coordinaat coord = (Coordinaat) nietsen.get(coordinaatRandom.nextInt(nietsen.size()));
             nietsen.remove(coord);
+            speelveld[coord.x][coord.y] = ding;
             if (ding instanceof Plant) {
-                speelveld[coord.x][coord.y] = ding;
                 plant.add(coord);
             }
             if (ding instanceof Herbivoor) {
-                speelveld[coord.x][coord.y] = ding;
                 herbivoor.add(coord);
             }
             if (ding instanceof Carnivoor) {
-                speelveld[coord.x][coord.y] = ding;
                 carnivoor.add(coord);
             }
         }
@@ -67,6 +72,7 @@ public class Speelveld {
     }
 
     public void interactieMetRechts(Ding ding) {
+
         if (ding instanceof Plant) {
 
             for (Coordinaat coord : plant) {
@@ -98,15 +104,25 @@ public class Speelveld {
                 }
             }
         }
+        if (ding instanceof Plant) {
+            for (Coordinaat coord : plant) {
+                if (speelveld[coord.x][coord.y].equals(ding)) {
+                    plaats.setCoordinaat(coord.x, coord.y);
+                }
+            }
+        } else {
+            for (Coordinaat coord : nietsen) {
+                if (speelveld[coord.x][coord.y].equals(ding)) {
+                    plaats.setCoordinaat(coord.x, coord.y);
+                }
+            }
+        }
         return plaats;
     }
-    
-    public Ding getDing(Coordinaat c){
-        return speelveld[c.x][c.y];
-    }
 
-    public List<Coordinaat> getVrijePlaatsen(Ding ding, Coordinaat plaats) {
+    public List<Coordinaat> getVrijePlaatsen(Ding ding) {
         List<Coordinaat> vrijePlaatsen = new ArrayList<>();
+        Coordinaat plaats = getPlaats(ding);
 
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
@@ -118,20 +134,28 @@ public class Speelveld {
         return vrijePlaatsen;
     }
 
-    public void verwijder(Ding ding, Coordinaat coord) {
+    public void verwijder(Ding ding) {
+        Coordinaat coord = getPlaats(ding);
         if (ding instanceof Carnivoor) {
             carnivoor.remove(coord);
-            speelveld[coord.x][coord.y] = niets;
         }
+        if (ding instanceof Herbivoor) {
+            herbivoor.remove(coord);
+        }
+        if (ding instanceof Plant) {
+            plant.remove(coord);
+        }
+        speelveld[coord.x][coord.y] = niets;
+        nietsen.add(coord);
     }
 
     public void wandel(Ding ding) {
 
-        List<Coordinaat> vrijePlaatsen;
-        vrijePlaatsen = getVrijePlaatsen(ding, getPlaats(ding));
+        Coordinaat vanPlaats = getPlaats(ding);
+        List<Coordinaat> vrijePlaatsen = getVrijePlaatsen(ding);
         if (!vrijePlaatsen.isEmpty()) {
-            speelveld[getPlaats(ding).x][getPlaats(ding).y] = niets;
             Coordinaat naarPlaats = vrijePlaatsen.get(coordinaatRandom.nextInt(vrijePlaatsen.size()));
+            speelveld[vanPlaats.x][vanPlaats.y] = niets;
             speelveld[naarPlaats.x][naarPlaats.y] = ding;
         }
     }
