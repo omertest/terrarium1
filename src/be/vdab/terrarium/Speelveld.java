@@ -100,6 +100,10 @@ public class Speelveld {
         }
         return plaats;
     }
+    
+    public Ding getDing(Coordinaat c){
+        return speelveld[c.x][c.y];
+    }
 
     public List<Coordinaat> getVrijePlaatsen(Ding ding, Coordinaat plaats) {
         List<Coordinaat> vrijePlaatsen = new ArrayList<>();

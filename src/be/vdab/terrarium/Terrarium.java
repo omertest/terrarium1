@@ -44,40 +44,56 @@ public class Terrarium {
         for (int i = 1; i <= aantalCarnivoren; i++) {
             speelveld.dingToevoegen((Ding) new Carnivoor(this));
         }
-    }    
+    }
 
     public Speelveld getSpeelveld() {
         return speelveld;
     }
-    
-    public void start() {    // bewegingen starten
-        speelveld.startBewegingen(); 
-        
+
+    // 1 actie
+    public void start() {
+        // alle planten + levenswaarde
+        for (Coordinaat c : speelveld.plant) {
+            Plant p = (Plant) speelveld.getDing(c);
+            p.setLevenswaarde(p.getLevenswaarde() + 1);
+        }
+
         // Per actie komen er 0 tot 10 nieuwe planten bij
-        int aantalNieuwePlanten = (int)(Math.random()*11);
-        for(int i = 1; i <= aantalNieuwePlanten; i++) {
-            speelveld.dingToevoegen((Ding)new Plant(this));
+        int aantalNieuwePlanten = (int) (Math.random() * 11);
+        for (int i = 1; i <= aantalNieuwePlanten; i++) {
+            speelveld.dingToevoegen((Ding) new Plant(this));
+        }
+
+        // alle herbivoren doen hun ding
+        for (Coordinaat c : speelveld.plant) {
+            Herbivoor h = (Herbivoor) speelveld.getDing(c);
+            // h.interageerMetEenDing();  - ding rechts ervan vandoen + check c.x = 20
+        }
+        // alle carnivoren doen hun ding
+        for (Coordinaat c : speelveld.plant) {
+            Carnivoor carni = (Carnivoor) speelveld.getDing(c);
+            // carni.interageerMetEenDing(carni);
         }
     }
-    
+
     public Coordinaat getPlaats(Ding ding) {
         return speelveld.getPlaats(ding);
     }
-    
+
     public List<Coordinaat> getVrijePlaatsen(Ding ding, Coordinaat plaats) {
         return speelveld.getVrijePlaatsen(ding, plaats);
     }
-    
+
     public void maakNieuweHerbivoor() {
-        speelveld.dingToevoegen((Ding)new Herbivoor(this));
+        speelveld.dingToevoegen((Ding) new Herbivoor(this));
     }
-    
+
     public void sterf(Ding ding, Coordinaat huidigePlaats) {
         speelveld.verwijder(ding, huidigePlaats);
     }
 
-    public void wandel(Ding ding, Coordinaat naarPlaats) {
-        speelveld.wandel(ding, naarPlaats);
+    public void wandel(Ding ding) {
+        speelveld.wandel(ding);
     }
-    
+
 }

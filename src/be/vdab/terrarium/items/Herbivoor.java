@@ -46,28 +46,33 @@ public class Herbivoor extends LevendWezen {
     public void interageerMetNiets(Niets niets) {
         this.wandel();
     }
-    
+
     private void boemboem(Herbivoor herbivoor) {
         terrarium.maakNieuweHerbivoor();
     }
-    
+
     private void eet(Plant plant) {
         setLevenswaarde(this.getLevenswaarde() + plant.getLevenswaarde());
         terrarium.sterf(plant, terrarium.getPlaats(plant));
-        
+
     }
-    
+
     private void wandel() {
-        Coordinaat huidigePlaats = terrarium.getPlaats(this);
-        
-        List<Coordinaat> vrijeplaatsen = terrarium.getVrijePlaatsen(this, huidigePlaats);
-        
-        if(getLevenswaarde() == 0 && vrijeplaatsen.size() < 8){
+        /*if (getLevenswaarde() == 0 && vrijeplaatsen.size() < 8) {
             terrarium.sterf(this, huidigePlaats);
-        } else if(vrijeplaatsen.size() < 8){
+        } else {
+            terrarium.wandel(this);
+        }*/
+        Coordinaat huidigePlaats = terrarium.getPlaats(this);
+
+        List<Coordinaat> vrijeplaatsen = terrarium.getVrijePlaatsen(this, huidigePlaats);
+
+        if (getLevenswaarde() == 0 && vrijeplaatsen.size() < 8) {
+            terrarium.sterf(this, huidigePlaats);
+        } else if (vrijeplaatsen.size() < 8) {
             Random coordinaatRandom = new Random();
             Coordinaat plaats = (Coordinaat) vrijeplaatsen.get(coordinaatRandom.nextInt(vrijeplaatsen.size()));
-            terrarium.wandel(this, plaats);
+            terrarium.wandel(this);
             this.setLevenswaarde(this.getLevenswaarde() - 1);
         }
     }

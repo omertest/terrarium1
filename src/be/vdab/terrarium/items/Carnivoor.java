@@ -86,7 +86,7 @@ public class Carnivoor extends LevendWezen {
         } else if(vrijeplaatsen.size() < 8){
             Random coordinaatRandom = new Random();
             Coordinaat plaats = (Coordinaat) vrijeplaatsen.get(coordinaatRandom.nextInt(vrijeplaatsen.size()));
-            terrarium.wandel(this, plaats);
+            terrarium.wandel(this);
             this.setLevenswaarde(this.getLevenswaarde() - 1);
         }
             
